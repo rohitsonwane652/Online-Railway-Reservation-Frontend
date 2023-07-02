@@ -1,0 +1,57 @@
+<div class="search-container">
+    <div class="brand-photo d-flex justify-content-center ">
+        <div class="d-flex flex-row col-md-4 align-items-center">
+            <img width="149" height="164" src="https://cdn.confirmtkt.com/img/actor_rana/rana_image_home@3x.png">
+            <div class="add-line-div">
+                <h1 class="ad-line">Fastest Train Booking</h1>
+            </div>
+        </div>
+    </div>
+    <div class="search-form">
+        <div class="source">
+            <img width="40" height="40" src="https://www.confirmtkt.com/img/icons/ic-search-from-desktop.svg" alt="search">
+            <div class="label-container">
+                <label for="sourceStation">From</label>
+                    <input type="text" matInput [formControl]="sourceControl" [matAutocomplete]="auto" name="sourceStation" [(ngModel)]="sourceStation" placeholder="Search Source Station">
+                <mat-autocomplete #auto="matAutocomplete" >
+                    <mat-option *ngFor="let option of filteredSourceOptions | async" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+            
+        </div>
+
+        <div class="destination">
+            <img width="40" height="40" src="https://www.confirmtkt.com/img/icons/ic-search-to-desktop.svg" alt="search" style="margin-left: 12px;">
+            <div class="label-container">
+                <label for="destinationStation">To</label>
+                <input type="text" matInput [formControl]="destControl" [matAutocomplete]="auto2" name="destinationStation" [(ngModel)]="destStation" placeholder="Search Destination Station">
+                <mat-autocomplete #auto2="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredDestOptions | async" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-autocomplete>
+                
+            </div>
+        </div>
+
+        <div class="doj">
+            <img width="40" height="40" src="https://www.confirmtkt.com/img/icons/ic-search-calender-desktop.svg" alt="calender">
+            <div class="label-container">
+                <label for="dateOfJourney">Departure Date</label>
+                <div class="" format="eee, dd MMM">
+                    <input matInput [matDatepicker]="picker" [formControl]="dateControl" aria-invalid="false" id="dateOfJourney" name="dateOfJourney" readonly="" type="text" (click)="openDatePicker(picker)" [(ngModel)]="dateOfJourney" >
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+        </div>
+        <button class="ctkt-btn-success" tabindex="0" type="button" (click)="getTrains()">
+            <span class="MuiButton-label">SEARCH</span>
+            <span class="MuiTouchRipple-root"></span>
+        </button>
+    </div>
+    <div class="text-center">
+        <h2 class="text-danger">{{responseString}}</h2>
+    </div>
+</div>

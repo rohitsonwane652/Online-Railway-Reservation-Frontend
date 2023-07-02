@@ -1,0 +1,129 @@
+.search-container {
+    padding-top: 30px;
+    background-color: #e5f3e2;
+    background-image: url(https://cdn.confirmtkt.com/img/banner/home_page_background@3x.png);
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: contain;
+    height: 452px;
+    width: 100%;
+}
+
+.search-container .search-form {
+    background: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    /* top: 75px; */
+    width: 960px;
+}
+
+
+.search-form .source {
+    align-items: center;
+    border-right: 1px solid #eaeaea;
+    display: flex;
+    height: 80px;
+    padding: 16px;
+    position: relative;
+    width: 300px;
+}
+
+.search-form img {
+    margin-right: 12px;
+    min-width: 32px;
+}
+
+
+
+.search-form .label-container {
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 52px);
+}
+
+.search-form label {
+    color: #adadad;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.search-form .destination {
+    align-items: center;
+    border-right: 1px solid #eaeaea;
+    display: flex;
+    height: 80px;
+    padding: 16px;
+    position: relative;
+    width: 300px;
+}
+
+.search-form .doj {
+    align-items: center;
+    border-right: 1px solid #eaeaea;
+    display: flex;
+    height: 80px;
+    padding: 16px;
+    position: relative;
+    width: 300px;
+}
+
+
+.search-container button.ctkt-btn-success {
+    background-color: #43a64e;
+    border: 0;
+    border-radius: 0 8px 8px 0;
+    box-shadow: none;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    height: 80px;
+    letter-spacing: .5px;
+    line-height: 1;
+    margin: 0;
+    padding: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 160px;
+}
+
+
+.search-form .destination span, .search-form .doj input[name=dateOfJourney], 
+.search-form .doj span,.search-form .source input[name=sourceStation], 
+.search-form .source span, .search-form .destination input[name=destinationStation] {
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+
+.ad-line{
+    color: #42a047;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: .28px;
+    line-height: 1.14;
+    margin: 20px 0 4px;
+    /* position: absolute;
+    top: 20%; */
+}
+
+

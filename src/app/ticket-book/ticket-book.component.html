@@ -1,0 +1,79 @@
+<div>
+    <div class="row p-2" style="background-color: rgb(228, 228, 228);">
+        <div class="col-md-1"></div>
+        <div class="col-md-8"> <h2>Book Your Ticket in TrainName</h2></div>
+    </div>
+    <div class="row mt-4 train-detail">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <img src="/assets/trainImage.jpg">
+        </div>
+        <div class="col-md-5 me-2">
+            <h2 style="background-color: rgb(13, 0, 86); color: white;">1129-Duranto Express</h2>
+            <table>
+                <tr>
+                    <td>From Station:</td><td>Mumbai</td>
+                </tr>
+                <tr>
+                    <td>To Station:</td><td>Nagpur</td>
+                </tr>
+                <tr>
+                    <td>Journey Date</td><td>06/08/2023</td>
+                </tr>
+                <tr>
+                    <td>Departure Time:</td><td>8:00 AM</td>
+                </tr>
+                <tr>
+                    <td>Arrival Time:</td><td>7:00PM</td>
+                </tr>
+                <tr>
+                    <td>SeatType:</td><td>Sleeper</td>
+                </tr>
+                <tr>
+                    <td>Ticket Fare:</td><td>₹410</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="container passenger-container">
+
+        <div>
+            <h2 class="passenger-details-heading">Enter Passenger Details</h2>
+            <form class="mt-3">
+                <table>
+                    <tr>
+                        <td>Enter Passenger Details:</td>
+                        <td><input type="text" placeholder="Enter Passenger Name" name="name" [(ngModel)]="name"></td>
+                        <td><input type="text" placeholder="Enter Age" name="age" [(ngModel)]="age"></td>
+                        <td>
+                            <select name="gender" name="gender" [(ngModel)]="gender" >
+                                <option value="" disabled selected>Select your Gender</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                            </select>
+                        </td>
+                        <td><button type="button" class="btn btn-success" (click)="addPassenger()">Add Passenger</button></td>
+                        <td><button type="button" class="btn btn-danger">Reset</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div >
+            <h2 class="passenger-details-heading">All Passenger Details</h2>
+            <table>
+                <th>Name</th>  <th>Age</th>  <th>Gender</th>
+                <tr *ngFor="let passenger of passengerDetails">
+                    <td>{{passenger.name}}</td>
+                    <td>{{passenger.age}}</td>
+                    <td>{{passenger.gender}}</td>
+                </tr>
+            </table>
+            <div *ngIf="!isPassengerEmpty" class="text-center">
+                <button type="button" class="btn btn-warning" (click)="onSubmit()">Book Now</button>
+            </div>
+        </div>
+
+    </div>
+</div>

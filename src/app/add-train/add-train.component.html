@@ -1,0 +1,110 @@
+<div class="bootstrap-wrapper container">
+  <div class="add-train row mt-4">
+    <h2>Add Train Details</h2>
+    <form class="col-md-6">
+      <!-- Text input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="trainId">Train Id</label>
+        <input type="text" id="trainId" name="trainId" class="form-control" required/>
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="trainName">Train Name</label>
+        <input
+          type="text"
+          id="trainName"
+          name="trainName"
+          class="form-control"
+        />
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="trainStart">Train Start</label>
+            <input
+              type="text"
+              id="trainStart"
+              name="trainStart"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="trainEnd">Train Ends</label>
+            <input
+              type="text"
+              id="trainEnd"
+              name="trainEnd"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="acCapacity">AC class Capacity</label>
+            <input
+              type="number"
+              id="acCapacity"
+              name="acCapacity"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="slCapacity">Sleeper class Capacity</label>
+            <input
+              type="number"
+              id="slCapacity"
+              name="slCapacity"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+            <div class="form-outline mb-4">
+                <label class="form-label" for="acFare">AC class Fare</label>
+                <input
+                  type="number"
+                  id="acFare"
+                  name="acFare"
+                  class="form-control"
+                />
+              </div>
+        </div>
+        <div class="col">
+            <div class="form-outline mb-4">
+                <label class="form-label" for="slFare">Sleeper class Fare</label>
+                <input
+                  type="number"
+                  id="slFare"
+                  name="slFare"
+                  class="form-control"
+                />
+              </div>
+        </div>
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="slFare">Enter Stations</label>
+        <input
+          type="text"
+          id="slFare"
+          name="slFare"
+          class="form-control"
+        />
+      </div>
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary btn-block mb-4">
+        Add Train
+      </button>
+    </form>
+  </div>
+</div>
