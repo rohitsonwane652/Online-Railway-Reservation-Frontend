@@ -11,7 +11,7 @@ export class TrainService {
 
   url="http://localhost:8900/train";
 
-  constructor(private http:HttpClient,public datepipe: DatePipe) { }
+  constructor(private http:HttpClient) { }
 
   newDate = new Date()
   searchDate = ''

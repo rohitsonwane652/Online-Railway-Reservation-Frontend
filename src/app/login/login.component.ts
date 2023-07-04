@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,28 +17,36 @@ export class LoginComponent {
 
   redirectUrl:any
 
-  constructor(private loginService:LoginService,private dataService:DataService, private router:Router) {}
+  constructor(private loginService:LoginService,private dataService:DataService, 
+    private router:Router,private dialogRef: MatDialogRef<LoginComponent>) {}
+
+  closeSignInPopUp(){
+    this.dialogRef.close();
+  }
+
+  errorMessage: string;
+  hasError: boolean = false;
 
   onSubmit(){
     if((this.credentials.email!='' && this.credentials.password!='') && 
         (this.credentials.email!=null && this.credentials.password!=null)){
 
-        this.loginService.generateToken(this.credentials).subscribe(
-          (response:any) =>{
-            this.loginService.loginUser(response.token);
-            this.redirectUrl = this.dataService.getRedirectUrl()
-            if(this.redirectUrl === ''){
-              this.router.navigate(["/dashboard"])
+          this.loginService.generateToken(this.credentials).subscribe(
+            (response:any) =>{
+              this.dialogRef.close();
+              this.loginService.loginUser(response.token);
+              this.redirectUrl = this.dataService.getRedirectUrl()
+              this.router.navigate([this.dataService.redirectUrl])
+            },
+            error=>{
+              this.errorMessage = "Invalid Credentials";
+              this.hasError = true;
             }
-            this.router.navigate([this.dataService.redirectUrl])
-          },
-          error=>{
-            console.log(error);
-          }
-        )
+          )
     }
     else{
-      console.log("Please Enter Values")
+      this.errorMessage = "All fields are required";
+      this.hasError = true;
     }
   }
 }

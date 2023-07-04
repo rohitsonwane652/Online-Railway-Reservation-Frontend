@@ -1,36 +1,38 @@
-<div>
+<div class="bootstrap-wrapper">
     <div class="row p-2" style="background-color: rgb(228, 228, 228);">
         <div class="col-md-1"></div>
-        <div class="col-md-8"> <h2>Book Your Ticket in TrainName</h2></div>
+        <div class="col-md-8"> <h2>Book Your Ticket in {{train.trainName}}</h2></div>
     </div>
     <div class="row mt-4 train-detail">
         <div class="col-md-1"></div>
         <div class="col-md-5">
-            <img src="/assets/trainImage.jpg">
+            <img src="/assets/trainImage.avif">
         </div>
         <div class="col-md-5 me-2">
-            <h2 style="background-color: rgb(13, 0, 86); color: white;">1129-Duranto Express</h2>
+            <h2 style="background-color: rgb(13, 0, 86); color: white;">
+                {{train.trainId}}-{{train.trainName}}
+            </h2>
             <table>
                 <tr>
-                    <td>From Station:</td><td>Mumbai</td>
+                    <h3>From Station:</h3><td>{{searchDetail.sourceStation}}</td>
                 </tr>
                 <tr>
-                    <td>To Station:</td><td>Nagpur</td>
+                    <h3>To Station:</h3><td>{{searchDetail.destStation}}</td>
                 </tr>
                 <tr>
-                    <td>Journey Date</td><td>06/08/2023</td>
+                    <h3>Journey Date</h3><td>{{searchDetail.dateOfJourney}}</td>
                 </tr>
                 <tr>
-                    <td>Departure Time:</td><td>8:00 AM</td>
+                    <h3>Departure Time:</h3><td>{{train.departureTime}}</td>
                 </tr>
                 <tr>
-                    <td>Arrival Time:</td><td>7:00PM</td>
+                    <h3>Arrival Time:</h3><td>{{train.arrivalTime}}</td>
                 </tr>
                 <tr>
-                    <td>SeatType:</td><td>Sleeper</td>
+                    <h3>SeatType:</h3><td>{{seatType}}</td>
                 </tr>
                 <tr>
-                    <td>Ticket Fare:</td><td>₹410</td>
+                    <h3>Ticket Fare:</h3><td>{{fare}}</td>
                 </tr>
             </table>
         </div>
@@ -44,10 +46,10 @@
                 <table>
                     <tr>
                         <td>Enter Passenger Details:</td>
-                        <td><input type="text" placeholder="Enter Passenger Name" name="name" [(ngModel)]="name"></td>
-                        <td><input type="text" placeholder="Enter Age" name="age" [(ngModel)]="age"></td>
+                        <td><input type="text" class="form-control no-border" placeholder="Enter Passenger Name" name="name" [(ngModel)]="name"></td>
+                        <td><input type="text" class="form-control no-border" placeholder="Enter Age" name="age" [(ngModel)]="age"></td>
                         <td>
-                            <select name="gender" name="gender" [(ngModel)]="gender" >
+                            <select name="gender" class="form-control no-border" name="gender" [(ngModel)]="gender" >
                                 <option value="" disabled selected>Select your Gender</option>
                                 <option value="Female">Female</option>
                                 <option value="Male">Male</option>
@@ -55,6 +57,9 @@
                         </td>
                         <td><button type="button" class="btn btn-success" (click)="addPassenger()">Add Passenger</button></td>
                         <td><button type="button" class="btn btn-danger">Reset</button></td>
+                    </tr>
+                    <tr *ngIf="limitExceed" class="alert alert-warning" role="alert">
+                        {{passengerLimitMessage}}
                     </tr>
                 </table>
             </form>

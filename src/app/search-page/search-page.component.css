@@ -1,0 +1,19 @@
+.search-container {
+    padding-top: 30px;
+    background-color: #e5f3e2;
+    background-image: url("/assets/page_back.png");
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: contain;
+    height: 452px;
+    width: 100%;
+}
+.ad-line{
+    color: #42a047;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: .28px;
+    line-height: 1.14;
+    margin: 20px 0 4px;
+
+}

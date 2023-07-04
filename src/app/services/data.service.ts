@@ -29,7 +29,7 @@ export class DataService {
    }
 
    getSearchDetails(){
-      return this.searchDetail
+      return this.searchDetail;
    }
 
    getRedirectUrl(){

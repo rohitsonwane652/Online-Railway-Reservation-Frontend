@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000d2;" >
+<nav class="navbar navbar-expand-lg navbar-dark p-3" style="background-color: #000000ee;" >
     <div class="container">
       <img src="/assets/train.png" style="height:40px">
       <a class="navbar-brand" routerLink="/">BookTrain</a>
@@ -7,14 +7,47 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+      <div *ngIf="!isRoleAdmin()" class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+            <a class="nav-link" routerLink="/">Home</a>
             <a class="nav-link" routerLink="/searchtrain">Search Train</a>
-            <a class="nav-link" routerLink="/addtrain">Add Train</a>
-            <a *ngIf="!loggedIn" class="nav-link" routerLink="/login">Login</a>
-            <a *ngIf="loggedIn" class="nav-link" name="user" >{{user}}</a>
-            <button *ngIf="loggedIn" (click)="logoutUser()" class="nav-link" >Logout</button>
+            <a class="nav-link" routerLink="/mybookings">My Bookings</a>
+            <button *ngIf="!isLoggedIn()" class="btn btn-light" (click)="openSignInDialog()">SignIn&nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
+            <div *ngIf="isLoggedIn()" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                  data-bs-toggle="dropdown">
+                <img src="/assets/user.png" width="40" height="40" class="d-inline-block">
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" routerLink="">Profile</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" (click)="logoutUser()">Sign Out</a></li>
+              </ul>
+            </div>
+        </div>
+      </div>
+
+      <div *ngIf="isRoleAdmin() && isLoggedIn()" class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+          <a class="nav-link" routerLink="/">Home</a>
+          <a class="nav-link" routerLink="/addtrain">Add Train</a>
+          <a class="nav-link" routerLink="">Update Train</a>
+          <a class="nav-link" routerLink="">Update Stations</a>
+          <div *ngIf="isLoggedIn()" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown">
+              <img src="/assets/user.png" width="40" height="40" class="d-inline-block">
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="">Profile</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" (click)="logoutAdmin()">Sign Out</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

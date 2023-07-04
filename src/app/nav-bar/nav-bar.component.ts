@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,19 +11,45 @@ import { LoginService } from '../services/login.service';
 export class NavBarComponent implements OnInit {
 
   public loggedIn = false;
-  public user:String = "";
+  public isUser = true;
   public token:any;
 
   constructor(private loginService:LoginService) {}
 
+  openSignInDialog(): void {
+    this.loginService.openSignInDialog();
+  }
+
   ngOnInit(): void {
-      this.loggedIn  = this.loginService.isLoggedIn();
       this.token = this.loginService.getToken();
-      this.user = this.loginService.getLoginUser()
+  }
+
+  isLoggedIn(){
+    return this.loginService.isLoggedIn();
+  }
+
+  isRoleUser(){
+    if(sessionStorage.getItem("userRole") === 'user'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  isRoleAdmin(){
+    if(sessionStorage.getItem("userRole") === 'admin'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   logoutUser(){
     this.loginService.logout();
     location.reload();
+  }
+
+  logoutAdmin(){
+    this.loginService.logout();
   }
 }

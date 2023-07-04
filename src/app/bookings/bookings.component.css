@@ -1,0 +1,17 @@
+.container{
+    margin-top: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+.container .row{
+    border-radius: 10px;
+}
+.ticket-container{
+    margin: 20px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+.container h3{
+    padding: 0;
+    font-weight: bold;
+    margin: 0;
+}

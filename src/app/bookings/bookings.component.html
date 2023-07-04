@@ -1,0 +1,81 @@
+<!-- <div class=" container ticket-container" *ngFor="let ticket of tickets">
+    <div class="row" >
+        <div class="d-flex col">
+            <h3>PNR No:</h3>
+            <h3>{{ticket.pnrNo}}</h3>
+        </div>
+        <div class="d-flex col-md-3">
+            <h3>Train Name:</h3>
+            <h3>{{ticket.trainName}}</h3>
+        </div>
+        <div class="d-flex col">
+            <h3>From:</h3>
+            <h3>{{ticket.source}}</h3>
+        </div>
+        <div class="d-flex col">
+            <h3>To:</h3>
+            <h3>{{ticket.destination}}</h3>
+        </div>
+        <div class="d-flex col">
+            <h3>Date:</h3>
+            <h3>{{ticket.travelDate}}</h3>
+        </div>
+        <div class="d-flex col">
+            <h3>Coach/SeatNo:</h3>
+            <h3>{{ticket.coach}}/{{ticket.seatNo}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-flex col">
+            <h3>Name:</h3>
+            <h3>{{ticket.name}}</h3>
+        </div>
+        <div class="d-flex col">
+            <h3>Age:</h3>
+            <h3>{{ticket.age}}</h3>
+        </div>
+        <div class="d-flex col">
+            <h3>Gender:</h3>
+            <h3>{{ticket.gender}}</h3>
+        </div>
+        <div class="d-flex col">
+            <h3>SeatType:</h3>
+            <h3>{{ticket.seatType}}</h3>
+        </div>
+    </div>
+</div> -->
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><h3>PNR No</h3></th>
+            <th><h3>Train Name</h3></th>
+            <th><h3>Train From</h3></th>
+            <th><h3>Train To</h3></th>
+            <th><h3>Journey Date</h3></th>
+            <th><h3>Coach/SeatNo</h3></th>
+            <th><h3>Name</h3></th>
+            <th><h3>Age</h3></th>
+            <th><h3>Gender</h3></th>
+            <th><h3>SeatType</h3></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of tickets">
+            <td>{{ticket.pnrNo}}</td>
+            <td>{{ticket.trainName}}</td>
+            <td>{{ticket.source}}</td>
+            <td>{{ticket.destination}}</td>
+            <td>{{ticket.travelDate}}</td>
+            <td>{{ticket.coach}}/{{ticket.seatNo}}</td>
+            <td>{{ticket.name}}</td>
+            <td>{{ticket.age}}</td>
+            <td>{{ticket.gender}}</td>
+            <td>{{ticket.seatType}}</td>
+            <td><button class="btn btn-danger">Cancel Ticket</button> </td>
+        </tr>
+    </tbody>
+    </table>
+
+</div>

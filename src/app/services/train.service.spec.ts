@@ -1,16 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TrainService } from './train.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TrainService', () => {
-  let service: TrainService;
-
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(TrainService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule], 
+      providers: [TrainService]
+    });
   });
 
-  it('should be created', () => {
+  it('Is Service running', () => {
+    const service: TrainService = TestBed.get(TrainService);
     expect(service).toBeTruthy();
-  });
+   });
 });

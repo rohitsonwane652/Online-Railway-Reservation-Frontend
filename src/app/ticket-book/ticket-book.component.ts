@@ -6,6 +6,7 @@ import { TrainDetail } from '../search/traindetail.model';
 import { LoginService } from '../services/login.service';
 import { PaymentService } from '../services/payment.service';
 import { Router } from '@angular/router';
+import { BookingService } from '../services/booking.service';
 
 declare var Razorpay:any;
 
@@ -16,15 +17,38 @@ declare var Razorpay:any;
 })
 export class TicketBookComponent implements OnInit {
 
-  bookingTrainDetail:BookingDetail
+  bookingTrainDetail:BookingDetail;
+  train:TrainDetail;
+  searchDetail={
+    sourceStation:'',
+    destStation:'',
+    dateOfJourney:''
+  }
+  seatType:String;
+  fare:number;
 
   constructor(private dataService:DataService,private loginService:LoginService,
-            private paymentService:PaymentService,private router:Router) {
+            private paymentService:PaymentService,private router:Router,
+            private bookingService:BookingService) {
+        this.bookingTrainDetail =  this.dataService.getBookingTrainDetail();
+        this.train = this.bookingTrainDetail.train;
+        this.searchDetail = this.dataService.getSearchDetails();
+        this.getSeatType();
+  }
 
+  getSeatType(){
+    if(this.bookingTrainDetail.seatType === 'ac'){
+      this.seatType = "AC";
+      this.fare = this.train.fareAC;
+    }
+    else{
+      this.seatType = "Sleeper"
+      this.fare = this.train.fareSL;
+    }
   }
 
   ngOnInit(){
-    this.bookingTrainDetail =  this.dataService.getBookingTrainDetail();
+    
   }
 
   passengerDetails:PassengerDetail[] = [];
@@ -32,18 +56,25 @@ export class TicketBookComponent implements OnInit {
   age:'';
   gender:'';
 
-  isPassengerEmpty = true;
+  isPassengerEmpty:boolean = true;
+  passengerLimitMessage:String = '';
+  limitExceed:boolean = false;
   addPassenger(){
-    const userEmail = this.loginService.getLoginUser();
-    const sourceStation = this.dataService.searchDetail.sourceStation;
-    const destStation = this.dataService.searchDetail.destStation;
+    if(this.passengerDetails.length < 6){
+      const userEmail = this.loginService.getLoginUser();
+      // const sourceStation = this.dataService.searchDetail.sourceStation;
+      // const destStation = this.dataService.searchDetail.destStation;
 
-    const train:TrainDetail = this.bookingTrainDetail.train;
-
-    this.passengerDetails.push(new PassengerDetail(this.name,this.age,this.gender,train.trainNo,
-        userEmail,sourceStation,destStation,train.departureTime,train.arrivalTime));
-    this.isPassengerEmpty = false;
-    console.log(this.passengerDetails)
+      const train:TrainDetail = this.bookingTrainDetail.train;
+      
+      this.passengerDetails.push(new PassengerDetail(this.name,this.age,this.gender,train.trainNo,
+          userEmail,this.searchDetail.sourceStation,this.searchDetail.destStation,train.departureTime,train.arrivalTime));
+      this.isPassengerEmpty = false;
+    }
+    else{
+      this.passengerLimitMessage = "You can only book 6 Passeneger Tickets at once";
+      this.limitExceed = true;
+    }
   }
 
   calculateTotalFare(){
@@ -53,14 +84,16 @@ export class TicketBookComponent implements OnInit {
   }
 
   bookTicket(){
-    this.paymentService.bookAcTicket(this.passengerDetails[0]).subscribe(
-      response =>{
-        console.log(response);
-      },
-      error =>{
-        console.log(error);
+    for(const passenger of this.passengerDetails){
+      if(this.seatType === 'AC'){
+        this.bookingService.bookAcTicket(passenger).subscribe()
       }
-    )
+      else{
+        this.bookingService.bookSlTicket(passenger).subscribe()
+      }
+      
+    }
+    
   }
   
 

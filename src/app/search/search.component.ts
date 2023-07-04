@@ -55,7 +55,6 @@ export class SearchComponent implements OnInit {
   filteredSourceOptions: Observable<string[]>;
 
   destControl = new FormControl();
-  // destOptions: any = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
   filteredDestOptions: Observable<string[]>;
 
 
@@ -72,16 +71,20 @@ export class SearchComponent implements OnInit {
 
   trainDetails:TrainDetail[];
   responseString:String;
+
   getTrains(){
     this.trainService.searchTrain(this.sourceStation,this.destStation,this.dateOfJourney).subscribe(
       (response:TrainDetail[]) =>{
         if(response!=null && response.length!=0){
-          this.trainDetails = response
-          this.dataService.sharedTrains = this.trainDetails
-          this.dataService.searchDetail = {sourceStation:this.sourceStation,destStation:this.destStation,dateOfJourney:this.dateOfJourney}
-          this.router.navigate(['getalltrains'])
+  
+            this.trainDetails = response
+            this.dataService.sharedTrains = this.trainDetails
+            this.dataService.searchDetail = {sourceStation:this.sourceStation,destStation:this.destStation,dateOfJourney:this.dateOfJourney}
+            this.router.navigate(['getalltrains'])  
+          
+        }else{
+          this.responseString = "No Trains Available "
         }
-        this.responseString = "No Trains Available "
       },
       error =>{
         console.log(error)

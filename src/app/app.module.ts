@@ -19,10 +19,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 // import { InputDialogComponent } from './input-dialog/input-dialog.component';
-import { AddTrainComponent } from './add-train/add-train.component';
+import { AddTrainComponent } from './admin-components/add-train/add-train.component';
 import { DatePipe } from '@angular/common';
 import { TrainsComponent } from './trains/trains.component';
 import { TicketBookComponent } from './ticket-book/ticket-book.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { SearchPageComponent } from './search-page/search-page.component';
+import { BookingsComponent } from './bookings/bookings.component';
 
 
 @NgModule({
@@ -33,10 +36,11 @@ import { TicketBookComponent } from './ticket-book/ticket-book.component';
     LoginComponent,
     DashboardComponent,
     SearchComponent,
-    // InputDialogComponent,
     AddTrainComponent,
     TrainsComponent,
-    TicketBookComponent
+    TicketBookComponent,
+    SearchPageComponent,
+    BookingsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +53,10 @@ import { TicketBookComponent } from './ticket-book/ticket-book.component';
     MatDatepickerModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDialogModule,
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},DatePipe],
+  providers: [{provide:{HTTP_INTERCEPTORS,MatDialogRef},useClass:AuthInterceptor,multi:true},DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

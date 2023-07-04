@@ -1,33 +1,58 @@
-<div class="bootstrap-wrapper container mt-3">
-    <div class="search-heading d-flex text-center me-5" >
-        <div class="col-md-5">
-            <h2>{{searchDetail.sourceStation}}</h2>
-        </div>
-        <div class="col-md-2">
-            <h2 class="text-success" style="font-weight: 500;font-size: xx-large;">→</h2>
-        </div>
-        <div class="col-md-5">
-            <h2>{{searchDetail.destStation}}</h2>
-        </div>
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="search-heading d-flex text-center me-5">
+      <div class="col-md-5">
+        <h2>{{ searchDetail.sourceStation }}</h2>
+      </div>
+      <div class="col-md-2">
+        <h2 class="text-success" style="font-weight: 500; font-size: xx-large">
+          →
+        </h2>
+      </div>
+      <div class="col-md-5">
+        <h2>{{ searchDetail.destStation }}</h2>
+      </div>
     </div>
 
     <div class="d-flex flex-row flex-wrap justify-content-center mt-5">
-        <div class="train-detail-box row m-3 p-2" *ngFor="let train of receivedTrains" >
-            <h2>{{train.trainId}} - {{train.trainName}}</h2>
-            <h3>Time: {{train.departureTime}}     -    {{train.arrivalTime}}</h3>
-            <div class="row p-2">
-                <div class="train-detail-sl col-md-5 m-2 p-2"  style="background-color: rgb(255, 255, 255);">
-                    <h3>Sleeper Fare - ₹{{train.fareSL}}</h3>
-                    <h5 class="text-success">Available-{{train.availableSL}}</h5>
-                    <button type="button" class="btn btn-danger " (click)="bookSlTicket(train,'sl')">Book Now</button>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="train-detail-ac col-md-5 m-2 p-2"  style="background-color: rgb(255, 255, 255);">
-                    <h3>AC Fare - ₹{{train.fareAC}}</h3>
-                    <h5 class="text-success">Available - {{train.availableAC}}</h5>
-                    <button type="button" class="btn btn-danger " (click)="bookAcTicket(train,'ac')">Book Now</button>
-                </div>
-            </div>
+      <div
+        class="train-detail-box row m-3 p-2"
+        *ngFor="let train of receivedTrains"
+      >
+        <h2>{{ train.trainId }} - {{ train.trainName }}</h2>
+        <h3>Time: {{ train.departureTime }} - {{ train.arrivalTime }}</h3>
+        <div class="row p-2">
+          <div
+            class="train-detail-sl col-md-5 m-2 p-2"
+            style="background-color: rgb(255, 255, 255)"
+          >
+            <h3>Sleeper Fare - ₹{{ train.fareSL }}</h3>
+            <h5 class="text-success">Available-{{ train.availableSL }}</h5>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="bookSlTicket(train, 'sl')"
+            >
+              Book Now
+            </button>
+          </div>
+          <div class="col-md-1"></div>
+          <div
+            class="train-detail-ac col-md-5 m-2 p-2"
+            style="background-color: rgb(255, 255, 255)"
+          >
+            <h3>AC Fare - ₹{{ train.fareAC }}</h3>
+            <h5 class="text-success">Available - {{ train.availableAC }}</h5>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="bookAcTicket(train, 'ac')"
+            >
+              Book Now
+            </button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

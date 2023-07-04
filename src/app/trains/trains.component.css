@@ -1,13 +1,29 @@
-.train-detail-box{
-    background-color: rgb(227, 227, 227);
-    border-radius: 5px;
-    width: 500px;
+.bootstrap-wrapper{
+    padding-top: 30px;
+    background-color: #e5f3e2;
+    background-image: url("/assets/page_back.png");
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: contain;
+    height: 100vh;
+    width: 100%;
 }
 
 .search-heading{
     padding: 10px;
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
 }
+
+.train-detail-box{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+
 
 h2,h3,h4,h5{
     margin: 0;
