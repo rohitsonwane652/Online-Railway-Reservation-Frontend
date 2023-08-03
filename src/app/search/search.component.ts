@@ -17,6 +17,7 @@ import { TrainDetail } from './traindetail.model';
 export class SearchComponent implements OnInit {
 
   constructor(private trainService:TrainService,private dataService:DataService,private router:Router){
+    this.getAllStations();
     this.filteredSourceOptions = this.sourceControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -29,16 +30,16 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.getAllStations();
+    
   }
 
   getAllStations(){
     this.trainService.getAllStations().subscribe(
       repsonse =>{
-        this.sourceOptions = repsonse
+        this.sourceOptions = repsonse;
       },
       error =>{
-        console.log(error)
+        console.log(error);
       }
     )
   }

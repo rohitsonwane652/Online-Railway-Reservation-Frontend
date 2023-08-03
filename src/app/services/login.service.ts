@@ -4,13 +4,15 @@ import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
+import { API_ENDPOINT } from '../api-contants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  url="http://localhost:8900/auth";
+  url=`${API_ENDPOINT}/auth`;
 
   constructor(private http:HttpClient,private dialog: MatDialog) { }
 
@@ -18,6 +20,13 @@ export class LoginService {
     this.dialog.open(LoginComponent, {
       width: '700px'
     });
+  }
+
+  openSignUpDialog(): void {
+    this.dialog.open(SignupComponent,{
+      width: '700px',
+      height: '400px'
+    })
   }
 
   //Generate Token from server
@@ -82,5 +91,9 @@ export class LoginService {
 
   getToken(){
     return sessionStorage.getItem("token");
+  }
+
+  createUser(userInfo){
+    return this.http.post(`${this.url}/register`,userInfo)
   }
 }

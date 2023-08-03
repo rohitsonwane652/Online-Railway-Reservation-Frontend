@@ -1,0 +1,48 @@
+<div class="bootstrap-wrapper">
+    <span class="close-button" (click)="closeSignInPopUp()">&times;</span>
+      <div class="container row">
+        <div class="login-sidebar col-md-4">
+            <img src="/assets/login-bgv.svg">
+        </div>
+        <div class="login-form col-md-8">
+          
+          <h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Sign Up</h2>
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()"> 
+            <input type="text" name="userName" class="form-control no-border" 
+            formControlName="userName" placeholder="Enter Full Name" >
+             <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="text-danger">
+              <div *ngIf="userName.errors.required">Full Name is required.</div>
+              <div *ngIf="userName.errors.pattern">
+                Full Name should only contain letters and spaces.
+              </div>
+            </div>
+            <br>
+
+            <input type="text" name="email" class="form-control no-border" 
+             placeholder="Enter email" formControlName="email" required>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+              <div *ngIf="email.errors.required" >
+                *Email is required.
+              </div>
+              <div *ngIf="email.errors.email">
+                Invalid Email.
+              </div>
+            </div>
+            <br>
+            <input type="password" name="password" class="form-control no-border" 
+            formControlName="password" placeholder="Enter Password">
+            <div *ngIf="password.touched && password.invalid" class="text-danger">
+              <div *ngIf="password.errors.required">Password is required.</div>
+              <div *ngIf="password.errors.minlength">Password must be at least 8 characters long.</div>
+              <div *ngIf="password.errors.pattern">Password must contain at least one uppercase letter, one lowercase letter, and one digit.</div>
+            </div>
+            <br>
+            <button type="submit" value="Login" [disabled]="signupForm.invalid">SignUp </button>
+          </form>
+          <div class="signup-link">
+            Sign In to Account? <a (click)="openSignInDialog()">Sign In</a>
+          </div>
+        </div>
+      </div>
+  </div>
+  

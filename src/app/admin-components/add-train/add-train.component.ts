@@ -1,41 +1,68 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { TrainService } from 'src/app/services/train.service';
+import { TrainDetail } from './train-detail.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-train',
   templateUrl: './add-train.component.html',
   styleUrls: ['./add-train.component.css']
 })
-export class AddTrainComponent implements OnInit {
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings = {};
-  ngOnInit() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
+export class AddTrainComponent  {
+  
+  constructor(private trainService:TrainService,private router:Router){
+    this.trainService.getAllStations().subscribe(
+      (response:any) =>{
+        this.stationsToSelect = response;
+      }
+    )
   }
-  onItemSelect(item: any) {
-    console.log(item);
+
+  
+  myForm:FormGroup = new FormGroup({
+    trainId:new FormControl(),
+    trainName:new FormControl(),
+    trainStart:new FormControl(),
+    trainEnd:new FormControl(),
+    capacityAC:new FormControl(),
+    capacitySL:new FormControl(),
+    fareAC:new FormControl(),
+    fareSL:new FormControl(),
+    stations:new FormControl()
+  })
+  // trainDetail:TrainDetail;
+
+  
+  stationsToSelect:String[] = [];
+  
+  stations = [];
+
+  submitForm(){
+    const trainDetail:TrainDetail = this.myForm.value;
+    this.trainService.addTrain(this.myForm.value).subscribe(
+      response =>{
+        console.log(response);
+      },
+      error =>{
+        console.log(error);
+      }
+    )
+    Swal.fire('Success', 'Train added successfully!', 'success');
+    this.router.navigate(['']);
   }
-  onSelectAll(items: any) {
-    console.log(items);
+
+  trainId:number;
+  date:String;
+
+  addJourney(){
+    this.trainService.addJourney(this.trainId,this.date).subscribe(
+      response => {
+        console.log(response);
+      }
+    )
   }
+
 }

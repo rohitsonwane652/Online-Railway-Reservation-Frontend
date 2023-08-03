@@ -11,17 +11,19 @@ import { TicketBookComponent } from './ticket-book/ticket-book.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { adminAuthGuard } from './admin-auth.guard';
 import { BookingsComponent } from './bookings/bookings.component';
+import { UpdateStationComponent } from './admin-components/update-station/update-station.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent,pathMatch:'full'},
   {path:'home',component:HomeComponent,pathMatch:'full'},
   {path:'login',component:LoginComponent,pathMatch:'full'},
-  {path:'dashboard',component:DashboardComponent,pathMatch:'full',canActivate:[authGuard]},
+  {path:'pnrstatus',component:DashboardComponent,pathMatch:'full'},
   {path:'searchtrain',component:SearchPageComponent,pathMatch:'full'},
   {path:'addtrain',component:AddTrainComponent,pathMatch:'full',canActivate:[adminAuthGuard]},
   {path:'getalltrains',component:TrainsComponent,pathMatch:'full'},
   {path:'bookticket',component:TicketBookComponent,pathMatch:'full',canActivate:[authGuard]},
-  {path:"mybookings",component:BookingsComponent,pathMatch:'full',canActivate:[authGuard]}
+  {path:"mybookings",component:BookingsComponent,pathMatch:'full',canActivate:[authGuard]},
+  {path:"updatestation",component:UpdateStationComponent,pathMatch:'full',canActivate:[adminAuthGuard]}
 ];
 
 @NgModule({

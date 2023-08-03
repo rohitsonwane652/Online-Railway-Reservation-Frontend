@@ -1,29 +1,59 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PassengerDetail } from '../ticket-book/passengerDetail.model';
+import { EmailRequest } from '../classes/EmailRequest.model';
+import { API_ENDPOINT } from '../api-contants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
 
-  newUrl = "http://localhost:8900/book"
+  newUrl = `${API_ENDPOINT}/book`;
 
   constructor(private http:HttpClient) { }
 
-  public bookAcTicket(passenger:PassengerDetail){
-    return this.http.post(`${this.newUrl}/acticket`,passenger);
+  async bookAcTicket(passenger:PassengerDetail):Promise<any>{
+    // return await this.http.post(`${this.newUrl}/acticket`,passenger);
+    try {
+      const data = await this.http.post(`${this.newUrl}/acticket`,passenger).toPromise();
+      return data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
   }
 
-  public bookSlTicket(passenger:PassengerDetail){
-    return this.http.post(`${this.newUrl}/slticket`,passenger);
+  async bookSlTicket(passenger:PassengerDetail){
+    // return this.http.post(`${this.newUrl}/slticket`,passenger);
+    try {
+      const data = await this.http.post(`${this.newUrl}/slticket`,passenger).toPromise();
+      return data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
   }
 
   public getAllTickets(userEmail){
     return this.http.get(`${this.newUrl}/getmytickets`,{params: {userEmail}});
   }
 
-  public test(){
-    return this.http.get<number>(`${this.newUrl}/test`);
+  public cancelAcTicket(pnrNo:number){
+    // console.log(pnrNo);
+    return this.http.put(`${this.newUrl}/cancelacticket/${pnrNo}`,{params: {pnrNo}});
+  }
+
+  public cancelSlTicket(pnrNo:number){
+    // console.log(pnrNo);
+    return this.http.put(`${this.newUrl}/cancelslticket/${pnrNo}`,{params: {pnrNo}});
+  }
+
+  public checkStatus(pnrNo:number){
+    return this.http.get(`${this.newUrl}/pnrstatus/${pnrNo}`,{params:{pnrNo}});
+  }
+
+  public sendEmail(emailRequest:EmailRequest){
+    return this.http.post(`${this.newUrl}/send-email`,emailRequest);
   }
 }

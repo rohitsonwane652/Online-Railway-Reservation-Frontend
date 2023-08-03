@@ -26,8 +26,10 @@ import { TicketBookComponent } from './ticket-book/ticket-book.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { BookingsComponent } from './bookings/bookings.component';
-
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { UpdateStationComponent } from './admin-components/update-station/update-station.component';
+import { SignupComponent } from './signup/signup.component';
+import { FooterComponent } from './footer/footer.component';   
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,10 @@ import { BookingsComponent } from './bookings/bookings.component';
     TrainsComponent,
     TicketBookComponent,
     SearchPageComponent,
-    BookingsComponent
+    BookingsComponent,
+    UpdateStationComponent,
+    SignupComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +60,7 @@ import { BookingsComponent } from './bookings/bookings.component';
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatDialogModule,
+    NgSelectModule
   ],
   providers: [{provide:{HTTP_INTERCEPTORS,MatDialogRef},useClass:AuthInterceptor,multi:true},DatePipe],
   bootstrap: [AppComponent]

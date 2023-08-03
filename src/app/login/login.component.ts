@@ -49,4 +49,10 @@ export class LoginComponent {
       this.hasError = true;
     }
   }
+
+
+  openSignUpDialog(){
+    this.closeSignInPopUp();
+    this.loginService.openSignUpDialog();
+  }
 }

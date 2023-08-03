@@ -15,7 +15,7 @@ export class TrainDetail{
     arrivalTime:String;
 
     constructor(trainNo:number,trainId:number,trainName:String,trainStart:String,trainEnd:String,availableAC:number,
-        availableSL:number,fareSL:number,fareAC:number,waitingSL:number,waitingAC:number,stations:String[],
+        availableSL:number,fareAC:number,fareSL:number,waitingSL:number,waitingAC:number,stations:String[],
         departureTime:String,arrivalTime:String){
         this.trainNo = trainNo;
         this.trainId = trainId;

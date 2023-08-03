@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark p-3" style="background-color: #000000ee;" >
     <div class="container">
-      <img src="/assets/train.png" style="height:40px">
-      <a class="navbar-brand" routerLink="/">BookTrain</a>
+      <img src="/assets/train.png" style="height:45px">
+      &nbsp;<a class="navbar-brand" routerLink="/">IRCTC Booking</a>
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,7 +10,7 @@
       <div *ngIf="!isRoleAdmin()" class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav ">
             <a class="nav-link" routerLink="/">Home</a>
-            <a class="nav-link" routerLink="/searchtrain">Search Train</a>
+            <a class="nav-link" routerLink="/pnrstatus">PNR Status</a>
             <a class="nav-link" routerLink="/mybookings">My Bookings</a>
             <button *ngIf="!isLoggedIn()" class="btn btn-light" (click)="openSignInDialog()">SignIn&nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
             <div *ngIf="isLoggedIn()" class="nav-item dropdown">
@@ -33,8 +33,8 @@
         <div class="navbar-nav ">
           <a class="nav-link" routerLink="/">Home</a>
           <a class="nav-link" routerLink="/addtrain">Add Train</a>
-          <a class="nav-link" routerLink="">Update Train</a>
-          <a class="nav-link" routerLink="">Update Stations</a>
+          <!-- <a class="nav-link" routerLink="">Update Train</a> -->
+          <a class="nav-link" routerLink="/updatestation">Update Stations</a>
           <div *ngIf="isLoggedIn()" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                 data-bs-toggle="dropdown">

@@ -1,11 +1,64 @@
-<div class="bootstrap-wrapper">
+<div class="bootstrap-wrapper pt-4">
     <div class="container">
-        <form>
-            <div class="form-group">
-              <label for="amount">Enter Amount</label>
-              <input type="email" class="form-control" id="amount" name="amount" placeholder="Enter Amount" [(ngModel)]="formadata.amount">
+        <h1>Enter PNR Number to check Ticket Status</h1>
+        <form class="container row">
+            <div class="form-group col-md-6">
+              <input type="number" class="form-control" id="pnrNo" name="pnrNo" placeholder="Enter Pnr No" [(ngModel)]="pnrNo" [required]="">
             </div>
-            <!-- <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button> -->
+            <div class="col-md-3"> 
+              <button type="submit" class="btn btn-primary" (click)="onSubmit()">Check Status</button>
+            </div>
           </form>
     </div>
+</div>
+<div class="ticket-container">
+<div class="container" *ngIf="ticket">
+  <table class="table">
+      <thead>
+      <tr>
+          <th scope="col"><h3>PNR No</h3></th>
+          <th><h3>Train Name</h3></th>
+          <th><h3>Train From</h3></th>
+          <th><h3>Train To</h3></th>
+          <th><h3>Journey Date</h3></th>
+          <th><h3>Coach/SeatNo</h3></th>
+          <th><h3>Name</h3></th>
+          <th><h3>Age</h3></th>
+          <th><h3>Gender</h3></th>
+          <th><h3>SeatType</h3></th>
+          <th><h3>Departure Time</h3></th>
+          <th><h3>Arrival Time</h3></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr >
+          <td>{{ticket.pnrNo}}</td>
+          <td>{{ticket.trainName}}</td>
+          <td>{{ticket.source}}</td>
+          <td>{{ticket.destination}}</td>
+          <td>{{ticket.travelDate}}</td>
+          <td>{{ticket.coach}}/{{ticket.seatNo}}</td>
+          <td>{{ticket.name}}</td>
+          <td>{{ticket.age}}</td>
+          <td>{{ticket.gender}}</td>
+          <td>{{ticket.seatType}}</td>
+          <td>{{ticket.departureTime}}</td>
+          <td>{{ticket.arrivalTime}}</td>
+      </tr>
+  </tbody>
+  </table>
+</div>
+</div>
+
+<div class="container mt-5 p-2">
+  <h2 class="home-heading mb-3">What is PNR?</h2>
+  <p>PNR is short name for 'Passenger Name Record'. It is a record in the database of Indian Railways against which the journey details for a passenger, or a group of passengers are stored. Centre for Railway Information Systems (CRIS) also maintains information like current PNR status of the passengers, availability of berths in all classes for the next 60 days and static enquiries like Train Between Important Stations, Reservations Rules, Fares, Refund, and Rules etc When a reserved railway ticket is booked for a train in Indian Railways, all the details of passengers are stored in relational database of centralized reservation system. These details are associated with a unique ten digit number. This reference number is called PNR. PNR number is generally printed at the top left corner of the printed tickets. In case of the E – Ticket, it is mentioned at top in separate cell. Passenger's personal information like name, age, gender etc. is saved in the database against this reference number. It includes columns to store booking status and current status of the ticket. As we know every train has limited number of seats, sometime one may not get a confirmed reserved ticket. The current status of such a waitlist (W/L) ticket changes when there is any availability of reserved seats due to cancellation. This new current reservation status is generally known as PNR status.</p>
+
+  <h2 class="home-heading mb-3">Passenger and Ticket Details:</h2>
+  <ul>
+    <li>Information about the passenger such as their Name, Age, Gender, and Berth Preference</li>
+    <li>Information on what seating class or quota the ticket has been booked under</li>
+    <li>It mentions the coach and berth number</li>
+    <li>The last bit of information will be about your boarding date and time and when the train is going to get you to your destination</li>
+  </ul>
 </div>

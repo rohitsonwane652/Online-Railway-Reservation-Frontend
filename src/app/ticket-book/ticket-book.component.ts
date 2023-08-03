@@ -7,6 +7,9 @@ import { LoginService } from '../services/login.service';
 import { PaymentService } from '../services/payment.service';
 import { Router } from '@angular/router';
 import { BookingService } from '../services/booking.service';
+import { Ticket } from '../bookings/ticket.model';
+import { EmailRequest } from '../classes/EmailRequest.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 declare var Razorpay:any;
 
@@ -26,14 +29,28 @@ export class TicketBookComponent implements OnInit {
   }
   seatType:String;
   fare:number;
-
+  passengerForm: FormGroup;
   constructor(private dataService:DataService,private loginService:LoginService,
             private paymentService:PaymentService,private router:Router,
-            private bookingService:BookingService) {
+            private bookingService:BookingService,private formBuilder: FormBuilder) {
+
         this.bookingTrainDetail =  this.dataService.getBookingTrainDetail();
         this.train = this.bookingTrainDetail.train;
         this.searchDetail = this.dataService.getSearchDetails();
         this.getSeatType();
+
+        this.passengerForm = this.formBuilder.group({
+          name: ['', [Validators.required, Validators.pattern('[A-Za-z\\s]+')]],
+          passengerAge: ['',[Validators.required,Validators.min(0)]],
+          gender: ['']
+        });
+  }
+
+  get name(){
+    return this.passengerForm.get('name');
+  }
+  get passengerAge(){
+    return this.passengerForm.get('passengerAge');
   }
 
   getSeatType(){
@@ -52,23 +69,23 @@ export class TicketBookComponent implements OnInit {
   }
 
   passengerDetails:PassengerDetail[] = [];
-  name:'';
+  fullName:'';
   age:'';
   gender:'';
 
   isPassengerEmpty:boolean = true;
   passengerLimitMessage:String = '';
   limitExceed:boolean = false;
+
   addPassenger(){
     if(this.passengerDetails.length < 6){
       const userEmail = this.loginService.getLoginUser();
-      // const sourceStation = this.dataService.searchDetail.sourceStation;
-      // const destStation = this.dataService.searchDetail.destStation;
 
       const train:TrainDetail = this.bookingTrainDetail.train;
       
-      this.passengerDetails.push(new PassengerDetail(this.name,this.age,this.gender,train.trainNo,
+      this.passengerDetails.push(new PassengerDetail(this.fullName,this.age,this.gender,train.trainNo,
           userEmail,this.searchDetail.sourceStation,this.searchDetail.destStation,train.departureTime,train.arrivalTime));
+      this.passengerForm.reset();
       this.isPassengerEmpty = false;
     }
     else{
@@ -79,21 +96,49 @@ export class TicketBookComponent implements OnInit {
 
   calculateTotalFare(){
     const train:TrainDetail = this.bookingTrainDetail.train;
-    const totalFare = this.passengerDetails.length * train.fareAC;
+    const seatType = this.bookingTrainDetail.seatType;
+    let totalFare;
+    if(seatType === 'ac'){
+      totalFare = this.passengerDetails.length * train.fareAC;
+    }else{
+      totalFare = this.passengerDetails.length * train.fareSL;
+    }
     return totalFare;
   }
 
-  bookTicket(){
+  tickets:Ticket[] = [];
+  bookedTicket:any;
+
+  async bookTicket() : Promise<void>{
     for(const passenger of this.passengerDetails){
-      if(this.seatType === 'AC'){
-        this.bookingService.bookAcTicket(passenger).subscribe()
+       if(this.seatType === 'AC'){
+        // this.bookingService.bookAcTicket(passenger).subscribe(
+        //   (response:Ticket) =>{
+        //     this.bookedTicket = response;
+        //     console.log(this.bookedTicket);
+        //   }
+        // );
+        this.bookedTicket = await this.bookingService.bookAcTicket(passenger);
+        this.tickets.push(this.bookedTicket);
       }
       else{
-        this.bookingService.bookSlTicket(passenger).subscribe()
+        // this.bookingService.bookSlTicket(passenger).subscribe(
+        //   (response:Ticket) =>{
+        //     this.bookedTicket = response;
+        //     console.log(this.bookedTicket);
+        //   }
+        // );
+        this.bookedTicket = await this.bookingService.bookSlTicket(passenger);
+        this.tickets.push(this.bookedTicket);
       }
-      
     }
-    
+
+    const to = sessionStorage.getItem('userEmail');
+    const subject = "Train Ticket Booking Mail";
+    const message = JSON.stringify(this.tickets,null,"\t");
+    const email:EmailRequest = new EmailRequest(to,subject,message);
+    console.log(email);
+    this.bookingService.sendEmail(email).subscribe();
   }
   
 
@@ -102,7 +147,7 @@ export class TicketBookComponent implements OnInit {
     this.paymentService.createTransaction(amount).subscribe(
       (response)=>{
         console.log(response)
-        this.openTransactionModal(response)
+        this.openTransactionModal(response);
       },
       (error) =>{
         console.log(error)

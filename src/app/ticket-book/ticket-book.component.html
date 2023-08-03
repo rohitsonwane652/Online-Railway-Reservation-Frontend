@@ -42,21 +42,34 @@
 
         <div>
             <h2 class="passenger-details-heading">Enter Passenger Details</h2>
-            <form class="mt-3">
+            <form class="mt-3" [formGroup]="passengerForm">
                 <table>
                     <tr>
                         <td>Enter Passenger Details:</td>
-                        <td><input type="text" class="form-control no-border" placeholder="Enter Passenger Name" name="name" [(ngModel)]="name"></td>
-                        <td><input type="text" class="form-control no-border" placeholder="Enter Age" name="age" [(ngModel)]="age"></td>
                         <td>
-                            <select name="gender" class="form-control no-border" name="gender" [(ngModel)]="gender" >
+                            <input type="text" class="form-control no-border" placeholder="Enter Passenger Name" name="name" [(ngModel)]="fullName" formControlName="name">
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                                <div *ngIf="name.errors.required">Full Name is required.</div>
+                                <div *ngIf="name.errors.pattern">Full Name should only contain letters and spaces.</div>
+                            </div>
+                        </td>
+                        
+                        <td>
+                            <input type="text" class="form-control no-border" placeholder="Enter Age" name="age" [(ngModel)]="age" formControlName="passengerAge">
+                            <div *ngIf="passengerAge.invalid && (passengerAge.dirty || passengerAge.touched)" class="text-danger">
+                                <div *ngIf="passengerAge.errors.required">Age is required.</div>
+                                <div *ngIf="passengerAge.errors.min">Age should not be negative</div>
+                            </div>
+                        </td>
+                        <td>
+                            <select name="gender" class="form-control no-border" name="gender" [(ngModel)]="gender" formControlName="gender">
                                 <option value="" disabled selected>Select your Gender</option>
                                 <option value="Female">Female</option>
                                 <option value="Male">Male</option>
                             </select>
                         </td>
-                        <td><button type="button" class="btn btn-success" (click)="addPassenger()">Add Passenger</button></td>
-                        <td><button type="button" class="btn btn-danger">Reset</button></td>
+                        <td><button type="submit" class="btn btn-success" (click)="addPassenger()" [disabled]="passengerForm.invalid">Add Passenger</button></td>
+                        <td><button type="reset" class="btn btn-danger">Reset</button></td>
                     </tr>
                     <tr *ngIf="limitExceed" class="alert alert-warning" role="alert">
                         {{passengerLimitMessage}}

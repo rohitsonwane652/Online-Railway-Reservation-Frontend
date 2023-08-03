@@ -1,11 +1,12 @@
-<div class="bootstrap-wrapper container d-flex justify-content-center">
-  <div class="add-train mt-4">
+<div class="bootstrap-wrapper container row ml-5">
+  <div class="col-md-2"></div>
+  <div class="add-train mt-4 col-md-6">
     <h2>Add Train Details</h2>
-    <form class="">
+    <form [formGroup]="myForm" (ngSubmit)="submitForm()">
       <!-- Text input -->
       <div class="form-outline mb-4">
         <label class="form-label" for="trainId">Train Id</label>
-        <input type="text" id="trainId" name="trainId" class="form-control" required/>
+        <input type="text" id="trainId" name="trainId" class="form-control" formControlName="trainId" required/>
       </div>
 
       <div class="form-outline mb-4">
@@ -15,6 +16,7 @@
           id="trainName"
           name="trainName"
           class="form-control"
+          formControlName="trainName"
         />
       </div>
 
@@ -27,6 +29,7 @@
               id="trainStart"
               name="trainStart"
               class="form-control"
+              formControlName="trainStart"
             />
           </div>
         </div>
@@ -38,6 +41,7 @@
               id="trainEnd"
               name="trainEnd"
               class="form-control"
+              formControlName="trainEnd"
             />
           </div>
         </div>
@@ -45,23 +49,25 @@
       <div class="row">
         <div class="col">
           <div class="form-outline mb-4">
-            <label class="form-label" for="acCapacity">AC class Capacity</label>
+            <label class="form-label" for="capacityAC">AC class Capacity</label>
             <input
               type="number"
-              id="acCapacity"
-              name="acCapacity"
+              id="capacityAC"
+              name="capacityAC"
               class="form-control"
+              formControlName="capacityAC"
             />
           </div>
         </div>
         <div class="col">
           <div class="form-outline mb-4">
-            <label class="form-label" for="slCapacity">Sleeper class Capacity</label>
+            <label class="form-label" for="capacitySL">Sleeper class Capacity</label>
             <input
               type="number"
-              id="slCapacity"
-              name="slCapacity"
+              id="capacitySL"
+              name="capacitySL"
               class="form-control"
+              formControlName="capacitySL"
             />
           </div>
         </div>
@@ -70,29 +76,31 @@
       <div class="row">
         <div class="col">
             <div class="form-outline mb-4">
-                <label class="form-label" for="acFare">AC class Fare</label>
+                <label class="form-label" for="fareAC">AC class Fare</label>
                 <input
                   type="number"
-                  id="acFare"
-                  name="acFare"
+                  id="fareAC"
+                  name="fareAC"
                   class="form-control"
+                  formControlName="fareAC"
                 />
               </div>
         </div>
         <div class="col">
             <div class="form-outline mb-4">
-                <label class="form-label" for="slFare">Sleeper class Fare</label>
+                <label class="form-label" for="fareSL">Sleeper class Fare</label>
                 <input
                   type="number"
-                  id="slFare"
-                  name="slFare"
+                  id="fareSL"
+                  name="fareSL"
                   class="form-control"
+                  formControlName="fareSL"
                 />
               </div>
         </div>
       </div>
 
-      <div class="form-outline mb-4">
+      <!-- <div class="form-outline mb-4">
         <label class="form-label" for="slFare">Enter Stations</label>
         <input
           type="text"
@@ -100,11 +108,35 @@
           name="slFare"
           class="form-control"
         />
-      </div>
+      </div> -->
+      <label class="form-label" for="slFare">Enter Stations</label>
+      <ng-select class="multiple-select"
+        [items]="stationsToSelect"
+        bindLabel="name"
+        name="selectedStations"
+        appendTo="body"
+        [multiple]="true"
+        formControlName="stations"
+      >
+      </ng-select>
+     
+      
       <!-- Submit button -->
-      <button type="submit" class="btn btn-primary btn-block mb-4">
+      <button type="submit" class="btn btn-primary btn-block mb-4 mt-3">
         Add Train
       </button>
     </form>
   </div>
+  <div class="col-md-1"></div>
+  <div class="add-journey col-md-3 mt-4">
+    <h2>Add Train Journey</h2>
+    <form (ngSubmit)="addJourney()">
+      <label for="trainId" class="form-label">Enter TrainId</label>
+      <input type="text" class="form-control" name="trainId" [(ngModel)]="trainId" placeholder="Enter TrainId">
+      <label for="journeyDate" class="form-label">Enter Train Journey Date</label>
+      <input type="text" class="form-control" name="date" [(ngModel)]="date">
+      <button type="submit" class="btn btn-warning mt-2" >Add Journey  </button>
+    </form>
+  </div>
 </div>
+

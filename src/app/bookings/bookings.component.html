@@ -73,7 +73,7 @@
             <td>{{ticket.age}}</td>
             <td>{{ticket.gender}}</td>
             <td>{{ticket.seatType}}</td>
-            <td><button class="btn btn-danger">Cancel Ticket</button> </td>
+            <td><button class="btn btn-danger" (click)="cancelTicket(ticket)">Cancel Ticket</button> </td>
         </tr>
     </tbody>
     </table>
